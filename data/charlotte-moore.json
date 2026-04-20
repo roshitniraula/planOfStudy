@@ -1,0 +1,195 @@
+{
+  "source_file": "charlotte-moore.docx",
+  "parsed_at": "2026-04-20T19:40:11.451689Z",
+  "parse_warnings": [],
+  "student": {
+    "name": "Charlotte Moore",
+    "year": "Junior",
+    "date": "January 2026",
+    "majors": "English",
+    "minors_certificates": "Journalism Certificate",
+    "expected_graduation": "Spring 2027",
+    "portfolio_link": null
+  },
+  "required_curriculum": [
+    {
+      "course": "HONR 201: Introduction to HonorsPre-requisite: Admission into HonorsIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2023"
+    },
+    {
+      "course": "HONR 375: Honors Portfolio DevelopmentPre-requisite: Complete 4 experiencesIn-Person",
+      "credits": "1",
+      "semester_planned": "Spring 2026",
+      "semester_completed": null
+    },
+    {
+      "course": "HONR 475: Honors Senior PortfolioPre-requisite: Complete all 8 experiencesOnline",
+      "credits": "1",
+      "semester_planned": "Fall 2026",
+      "semester_completed": null
+    }
+  ],
+  "optional_curriculum": [],
+  "competencies": {
+    "leadership": {
+      "experience_log": [
+        {
+          "experience": "Student Government Senator",
+          "type": "Leadership",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Team Captain \u2013 Soccer",
+          "type": "Leadership",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Peer Tutor Coordinator",
+          "type": "Development",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "Community Garden Organizer",
+          "type": "Service",
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Student Government Senator",
+          "type": "Leadership",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": [
+            true,
+            true
+          ]
+        },
+        {
+          "experience": "Team Captain \u2013 Soccer",
+          "type": "Leadership",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": [
+            true,
+            true
+          ]
+        }
+      ],
+      "advisor_notes": null
+    },
+    "research": {
+      "experience_log": [
+        {
+          "experience": "Survey Study on Campus Mental Health",
+          "type": "Research",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "Independent Study: Data Analysis",
+          "type": "Scholarly",
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Survey Study on Campus Mental Health",
+          "type": "Research",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "experience": "Independent Study: Data Analysis",
+          "type": "Scholarly",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true,
+            true
+          ]
+        }
+      ],
+      "advisor_notes": "Strong engagement with the competency. Consider adding one more highlighted experience to strengthen your portfolio."
+    },
+    "intercultural": {
+      "experience_log": [
+        {
+          "experience": "Cultural Competency Workshop Series",
+          "type": "Development",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "Study Abroad \u2013 Japan",
+          "type": "Global",
+          "progress": "Planned"
+        },
+        {
+          "experience": "Multicultural Affairs Leadership Summit",
+          "type": "Leadership",
+          "progress": "Completed"
+        },
+        {
+          "experience": "International Culture Night Volunteer",
+          "type": "Development",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Cultural Competency Workshop Series",
+          "type": "Development",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        },
+        {
+          "experience": "Study Abroad \u2013 Japan",
+          "type": "Global",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Reminder: intercultural experience needs to be completed before Spring registration for HONR 475."
+    }
+  }
+}

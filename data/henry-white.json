@@ -1,0 +1,186 @@
+{
+  "source_file": "henry-white.docx",
+  "parsed_at": "2026-04-20T19:40:11.526531Z",
+  "parse_warnings": [],
+  "student": {
+    "name": "Henry White",
+    "year": "Freshman",
+    "date": "January 2026",
+    "majors": "Undecided",
+    "minors_certificates": null,
+    "expected_graduation": "Spring 2028",
+    "portfolio_link": null
+  },
+  "required_curriculum": [
+    {
+      "course": "HONR 201: Introduction to HonorsPre-requisite: Admission into HonorsIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2025"
+    },
+    {
+      "course": "HONR 375: Honors Portfolio DevelopmentPre-requisite: Complete 4 experiencesIn-Person",
+      "credits": "1",
+      "semester_planned": "Fall 2026",
+      "semester_completed": null
+    },
+    {
+      "course": "HONR 475: Honors Senior PortfolioPre-requisite: Complete all 8 experiencesOnline",
+      "credits": "1",
+      "semester_planned": "Fall 2027",
+      "semester_completed": null
+    }
+  ],
+  "optional_curriculum": [],
+  "competencies": {
+    "leadership": {
+      "experience_log": [
+        {
+          "experience": "MavPass Mentor",
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Peer Tutor Coordinator",
+          "type": "Development",
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "MavPass Mentor",
+          "type": "Development",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": [
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "experience": "Peer Tutor Coordinator",
+          "type": "Development",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Reminder: intercultural experience needs to be completed before Spring registration for HONR 475."
+    },
+    "research": {
+      "experience_log": [
+        {
+          "experience": "NURS 445 Research Project",
+          "type": "Research",
+          "progress": "Planned"
+        },
+        {
+          "experience": "Honors Thesis Proposal",
+          "type": "Scholarly",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "ENG 271W Writing Portfolio",
+          "type": "Creative",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "NURS 445 Research Project",
+          "type": "Research",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        },
+        {
+          "experience": "Honors Thesis Proposal",
+          "type": "Scholarly",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        }
+      ],
+      "advisor_notes": "Needs a formal proposal submitted before this experience can be approved. Schedule advising appointment."
+    },
+    "intercultural": {
+      "experience_log": [
+        {
+          "experience": "ESL Tutoring Program",
+          "type": "Service",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Attend Three Culture Nights",
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Study Abroad \u2013 Spain",
+          "type": "Global",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Cultural Competency Workshop Series",
+          "type": "Development",
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "ESL Tutoring Program",
+          "type": "Service",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": [
+            true,
+            true
+          ]
+        },
+        {
+          "experience": "Attend Three Culture Nights",
+          "type": "Development",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Please revise the draft reflection \u2014 it needs a stronger connection to the required topics listed."
+    }
+  }
+}

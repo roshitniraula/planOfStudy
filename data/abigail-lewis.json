@@ -1,0 +1,168 @@
+{
+  "source_file": "abigail-lewis.docx",
+  "parsed_at": "2026-04-20T19:40:11.402112Z",
+  "parse_warnings": [],
+  "student": {
+    "name": "Abigail Lewis",
+    "year": "Sophomore",
+    "date": "January 2026",
+    "majors": "Art",
+    "minors_certificates": "Art History Minor",
+    "expected_graduation": "Fall 2027",
+    "portfolio_link": null
+  },
+  "required_curriculum": [
+    {
+      "course": "HONR 201: Introduction to HonorsPre-requisite: Admission into HonorsIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2024"
+    },
+    {
+      "course": "HONR 375: Honors Portfolio DevelopmentPre-requisite: Complete 4 experiencesIn-Person",
+      "credits": "1",
+      "semester_planned": "Spring 2026",
+      "semester_completed": null
+    },
+    {
+      "course": "HONR 475: Honors Senior PortfolioPre-requisite: Complete all 8 experiencesOnline",
+      "credits": "1",
+      "semester_planned": "Spring 2027",
+      "semester_completed": null
+    }
+  ],
+  "optional_curriculum": [],
+  "competencies": {
+    "leadership": {
+      "experience_log": [
+        {
+          "experience": "Honors Student Ambassador",
+          "type": "Leadership",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "Student Government Senator",
+          "type": "Leadership",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Club President \u2013 STEM Society",
+          "type": "Leadership",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Workshop Facilitator",
+          "type": "Development",
+          "progress": "Planned"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Honors Student Ambassador",
+          "type": "Leadership",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        },
+        {
+          "experience": "Student Government Senator",
+          "type": "Leadership",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true,
+            true
+          ]
+        }
+      ],
+      "advisor_notes": "Excellent work on the research project. The thesis proposal is well-scoped for the timeline."
+    },
+    "research": {
+      "experience_log": [
+        {
+          "experience": "Undergraduate Research \u2013 Biology Lab",
+          "type": "Research",
+          "progress": "Completed"
+        },
+        {
+          "experience": "NURS 445 Research Project",
+          "type": "Research",
+          "progress": "Planned"
+        },
+        {
+          "experience": "Archival Research \u2013 History Dept",
+          "type": "Scholarly",
+          "progress": "Planned"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Undergraduate Research \u2013 Biology Lab",
+          "type": "Research",
+          "progress_stages_completed": 3,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        },
+        {
+          "experience": "NURS 445 Research Project",
+          "type": "Research",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "In HONR 201, write your practice reflection on this experience. Focus on growth and challenges."
+    },
+    "intercultural": {
+      "experience_log": [
+        {
+          "experience": "Attend Three Culture Nights",
+          "type": "Development",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Attend Three Culture Nights",
+          "type": "Development",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": [
+            true,
+            true
+          ]
+        }
+      ],
+      "advisor_notes": "Please revise the draft reflection \u2014 it needs a stronger connection to the required topics listed."
+    }
+  }
+}

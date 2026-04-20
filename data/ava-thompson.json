@@ -1,0 +1,169 @@
+{
+  "source_file": "ava-thompson.docx",
+  "parsed_at": "2026-04-20T19:40:11.433593Z",
+  "parse_warnings": [],
+  "student": {
+    "name": "Ava Thompson",
+    "year": "Senior",
+    "date": "January 2026",
+    "majors": "Business Administration",
+    "minors_certificates": "Economics Minor",
+    "expected_graduation": "Spring 2026",
+    "portfolio_link": null
+  },
+  "required_curriculum": [
+    {
+      "course": "HONR 201: Introduction to HonorsPre-requisite: Admission into HonorsIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2023"
+    },
+    {
+      "course": "HONR 375: Honors Portfolio DevelopmentPre-requisite: Complete 4 experiencesIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2024"
+    },
+    {
+      "course": "HONR 475: Honors Senior PortfolioPre-requisite: Complete all 8 experiencesOnline",
+      "credits": "1",
+      "semester_planned": "Spring 2026",
+      "semester_completed": null
+    }
+  ],
+  "optional_curriculum": [],
+  "competencies": {
+    "leadership": {
+      "experience_log": [
+        {
+          "experience": "Workshop Facilitator",
+          "type": "Development",
+          "progress": "Planned"
+        },
+        {
+          "experience": "Honors Student Ambassador",
+          "type": "Leadership",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "Community Garden Organizer",
+          "type": "Service",
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Workshop Facilitator",
+          "type": "Development",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        },
+        {
+          "experience": "Honors Student Ambassador",
+          "type": "Leadership",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        }
+      ],
+      "advisor_notes": "Excellent work on the research project. The thesis proposal is well-scoped for the timeline."
+    },
+    "research": {
+      "experience_log": [
+        {
+          "experience": "Engineering Design Capstone",
+          "type": "Research",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Creative Writing Collection",
+          "type": "Creative",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Engineering Design Capstone",
+          "type": "Research",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        },
+        {
+          "experience": "Creative Writing Collection",
+          "type": "Creative",
+          "progress_stages_completed": 3,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Reminder: intercultural experience needs to be completed before Spring registration for HONR 475."
+    },
+    "intercultural": {
+      "experience_log": [
+        {
+          "experience": "Cultural Competency Workshop Series",
+          "type": "Development",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "ISSS Global Buddy Program",
+          "type": "Application",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Cultural Competency Workshop Series",
+          "type": "Development",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        },
+        {
+          "experience": "ISSS Global Buddy Program",
+          "type": "Application",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Great progress this semester. Continue developing your reflection on the leadership experience before HONR 375."
+    }
+  }
+}

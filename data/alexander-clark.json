@@ -1,0 +1,162 @@
+{
+  "source_file": "alexander-clark.docx",
+  "parsed_at": "2026-04-20T19:40:11.411656Z",
+  "parse_warnings": [],
+  "student": {
+    "name": "Alexander Clark",
+    "year": "Senior",
+    "date": "April 2026",
+    "majors": "Civil Engineering",
+    "minors_certificates": "Environmental Studies Minor",
+    "expected_graduation": "Spring 2026",
+    "portfolio_link": null
+  },
+  "required_curriculum": [
+    {
+      "course": "HONR 201: Introduction to HonorsPre-requisite: Admission into HonorsIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2023"
+    },
+    {
+      "course": "HONR 375: Honors Portfolio DevelopmentPre-requisite: Complete 4 experiencesIn-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Spring 2024"
+    },
+    {
+      "course": "HONR 475: Honors Senior PortfolioPre-requisite: Complete all 8 experiencesOnline",
+      "credits": "1",
+      "semester_planned": "Spring 2026",
+      "semester_completed": null
+    }
+  ],
+  "optional_curriculum": [],
+  "competencies": {
+    "leadership": {
+      "experience_log": [
+        {
+          "experience": "Honors Student Ambassador",
+          "type": "Leadership",
+          "progress": "In Progress"
+        },
+        {
+          "experience": "Club President \u2013 STEM Society",
+          "type": "Leadership",
+          "progress": "Completed"
+        },
+        {
+          "experience": "MavPass Mentor",
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": "Community Garden Organizer",
+          "type": "Service",
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Honors Student Ambassador",
+          "type": "Leadership",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        },
+        {
+          "experience": "Club President \u2013 STEM Society",
+          "type": "Leadership",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": [
+            true
+          ]
+        }
+      ],
+      "advisor_notes": "Strong engagement with the competency. Consider adding one more highlighted experience to strengthen your portfolio."
+    },
+    "research": {
+      "experience_log": [
+        {
+          "experience": "Creative Writing Collection",
+          "type": "Creative",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Creative Writing Collection",
+          "type": "Creative",
+          "progress_stages_completed": 2,
+          "progress_stages": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": null
+    },
+    "intercultural": {
+      "experience_log": [
+        {
+          "experience": "Study Abroad \u2013 Japan",
+          "type": "Global",
+          "progress": "Planned"
+        },
+        {
+          "experience": "International Culture Night Volunteer",
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": "ISSS Global Buddy Program",
+          "type": "Application",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Study Abroad \u2013 Japan",
+          "type": "Global",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        },
+        {
+          "experience": "International Culture Night Volunteer",
+          "type": "Development",
+          "progress_stages_completed": 4,
+          "progress_stages": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Strong engagement with the competency. Consider adding one more highlighted experience to strengthen your portfolio."
+    }
+  }
+}

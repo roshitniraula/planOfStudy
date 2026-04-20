@@ -1,54 +1,147 @@
 {
   "source_file": "HONORS PROGRAM PLAN OF STUDY - Copy (1).docx",
-  "parsed_at": "2026-04-20T18:45:22.794443Z",
-  "parse_warnings": [
-    "Could not find student information table",
-    "Could not find required curriculum table",
-    "Could not find experience log table for leadership",
-    "Could not find highlighted experiences table for leadership",
-    "Could not find experience log table for research",
-    "Could not find highlighted experiences table for research",
-    "Could not find experience log table for intercultural",
-    "Could not find highlighted experiences table for intercultural"
-  ],
+  "parsed_at": "2026-04-20T19:40:11.391634Z",
+  "parse_warnings": [],
   "student": {
     "name": null,
     "year": null,
     "date": null,
     "majors": null,
-    "minors_certificates": null,
-    "expected_graduation": null,
+    "minors_certificates": "Certificate",
+    "expected_graduation": "Fall 2026",
     "portfolio_link": null
   },
-  "required_curriculum": [],
-  "optional_curriculum": [
+  "required_curriculum": [
     {
-      "course": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio",
-      "credits": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio",
-      "semester_planned": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio",
-      "semester_completed": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio"
+      "course": "HONR 201: Introduction to Honors Pre-requisite: Admission into Honors  In-Person",
+      "credits": "1",
+      "semester_planned": null,
+      "semester_completed": "Fall 2025"
     },
     {
-      "course": "Courses",
-      "credits": "Credits",
-      "semester_planned": "Semester Planned",
-      "semester_completed": "Semester Completed"
+      "course": "HONR 375: Honors Portfolio Development Pre-requisite: Complete 4 experiences  In-Person",
+      "credits": "1",
+      "semester_planned": "Spring 2026",
+      "semester_completed": null
+    },
+    {
+      "course": "HONR 475: Honors Senior Portfolio Pre-requisite: Complete all 8 experiences Online Asynchronous",
+      "credits": "1",
+      "semester_planned": "Fall 2026",
+      "semester_completed": null
     }
   ],
+  "optional_curriculum": [],
   "competencies": {
     "leadership": {
-      "experience_log": [],
-      "highlighted": [],
-      "advisor_notes": null
+      "experience_log": [
+        {
+          "experience": null,
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": null,
+          "type": "Application",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "MavPass",
+          "type": "Development",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        },
+        {
+          "experience": "Mayo Internship",
+          "type": "Application",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "In HONR 201, write your practice reflection on MavPass attendance. Needs proposal for hospital volunteering."
     },
     "research": {
-      "experience_log": [],
-      "highlighted": [],
-      "advisor_notes": null
+      "experience_log": [
+        {
+          "experience": null,
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": null,
+          "type": "Development",
+          "progress": "Completed"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "ENG 271W",
+          "type": "Development",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
+      "advisor_notes": "Need proposal for NURS 445.  Talk to professors this semester about undergraduate research project. Try to present at URS in the spring or other conference. URC grant applications are open until 10/3."
     },
     "intercultural": {
-      "experience_log": [],
-      "highlighted": [],
+      "experience_log": [
+        {
+          "experience": null,
+          "type": "Development",
+          "progress": "Completed"
+        },
+        {
+          "experience": null,
+          "type": null,
+          "progress": "In Progress"
+        }
+      ],
+      "highlighted": [
+        {
+          "experience": "Attend three culture nights",
+          "type": "Development",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        },
+        {
+          "experience": "Study Abroad in US",
+          "type": "Application",
+          "progress_stages_completed": 1,
+          "progress_stages": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "reflection_topics_checked": []
+        }
+      ],
       "advisor_notes": null
     }
   }

@@ -1,7 +1,24 @@
 """
 parse.py — reads every .docx in 'Plan of Study/' and writes one JSON per student to 'data/'.
+
+Document structure (6 tables):
+  0 — Student Information
+  1 — Required Curriculum
+  2 — Optional Curriculum (Honors with Distinction)
+  3 — Leadership competency  (also contains "HONORS COMPETENCY EXPERIENCES" header)
+  4 — Research, Scholarly, & Creative Activity competency
+  5 — Intercultural Engagement competency
+
+Each competency table layout (row indices from raw XML):
+  Leadership (17 rows): log header row 3, log data rows 4-8,
+                        highlighted header row 10, highlighted rows 11-14,
+                        notes header row 15, notes data row 16
+  Research / Intercultural (16 rows): log header row 2, log data rows 3-7,
+                        highlighted header row 9, highlighted rows 10-13,
+                        notes header row 14, notes data row 15
 """
 
+from __future__ import annotations
 import json
 import re
 import sys
@@ -9,11 +26,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from docx import Document
+from docx.oxml.ns import qn
 
 PLANS_DIR = Path(__file__).parent.parent / "Plan of Study"
 DATA_DIR = Path(__file__).parent.parent / "data"
 
-PLACEHOLDERS = {"Type here.", "Choose an item.", "Click or tap here to enter text."}
+PLACEHOLDERS = {"Type here.", "Choose an item.", "Click or tap here to enter text.",
+                "Enter your first and last name here.", "Enter your major(s) here.",
+                "Paste your portfolio link here."}
 
 PROGRESS_STAGE_LABELS = [
     "Experience is approved through list or proposal",
@@ -27,8 +47,7 @@ def slugify(name: str) -> str:
     name = name.lower().strip()
     name = re.sub(r"[^\w\s-]", "", name)
     name = re.sub(r"[\s_]+", "-", name)
-    name = re.sub(r"-+", "-", name)
-    return name.strip("-")
+    return re.sub(r"-+", "-", name).strip("-")
 
 
 def clean(text: str | None) -> str | None:
@@ -40,253 +59,193 @@ def clean(text: str | None) -> str | None:
     return text
 
 
-def cell_text(cell) -> str | None:
-    return clean(" ".join(p.text for p in cell.paragraphs).strip()) if cell else None
+def tc_paragraphs(tc) -> list[str]:
+    """Return text of each paragraph in a table cell."""
+    return ["".join(r.text or "" for r in p.findall(".//" + qn("w:t")))
+            for p in tc.findall(".//" + qn("w:p"))]
 
 
-def raw_cell_text(cell) -> str:
-    return "\n".join(p.text for p in cell.paragraphs).strip() if cell else ""
+def tc_text(tc) -> str | None:
+    return clean(" ".join(tc_paragraphs(tc)).strip())
 
 
-def identify_table(table) -> str | None:
-    """Return a table type string based on its header row content."""
-    if not table.rows:
-        return None
-    first_row_text = " ".join(
-        c.text.strip().lower() for c in table.rows[0].cells
-    )
-    if "student name" in first_row_text or "student  name" in first_row_text:
-        return "student_info"
-    if "honr 201" in first_row_text or (
-        "courses" in first_row_text and "credits" in first_row_text and "semester planned" in first_row_text
-        and any("honr" in c.text.lower() for row in table.rows for c in row.cells)
-    ):
-        return "required_curriculum"
-    if "honors with distinction" in first_row_text:
-        return "optional_curriculum"
+def raw_rows(table) -> list[list]:
+    """Return rows as lists of <w:tc> elements, avoiding the merged-cell bug."""
+    result = []
+    for tr in table._tbl.findall(".//" + qn("w:tr")):
+        result.append(tr.findall(".//" + qn("w:tc")))
+    return result
 
-    # Check for curriculum tables by column headers
-    header_cells = [c.text.strip().lower() for c in table.rows[0].cells]
-    if set(header_cells) >= {"courses", "credits"} or (
-        "courses" in header_cells and "credits" in header_cells
-    ):
-        # Could be required or optional — need more context; check subsequent rows
-        for row in table.rows[1:]:
-            for cell in row.cells:
-                t = cell.text.strip().lower()
-                if "honr 201" in t or "honr 375" in t or "honr 475" in t:
-                    return "required_curriculum"
-        return "optional_curriculum"
 
-    # Experience log: has "experience/idea" or "experience type" in header
-    if "experience/idea" in first_row_text or "experience type" in first_row_text:
-        return "experience_log"
-
-    # Highlighted experiences: has "progress tracker" or "reflection topics" in header
-    if "progress tracker" in first_row_text or "reflection topics" in first_row_text:
-        return "highlighted"
-
-    return None
-
+# ── Student info ──────────────────────────────────────────────────────────────
 
 def parse_student_info(table) -> dict:
-    info = {
-        "name": None, "year": None, "date": None,
-        "majors": None, "minors_certificates": None,
-        "expected_graduation": None, "portfolio_link": None,
+    rows = raw_rows(table)
+    def val(row_idx, col_idx):
+        try:
+            return tc_text(rows[row_idx][col_idx])
+        except IndexError:
+            return None
+
+    return {
+        "name":                val(2, 0),
+        "year":                val(2, 1),
+        "date":                val(2, 2),
+        "majors":              val(4, 0),
+        "minors_certificates": val(4, 1),
+        "expected_graduation": val(4, 2),
+        "portfolio_link":      val(6, 0),
     }
-    for row in table.rows:
-        cells = row.cells
-        for i in range(0, len(cells) - 1, 2):
-            label = cells[i].text.strip().lower().rstrip(":")
-            value = clean(cells[i + 1].text.strip())
-            if "student name" in label or label == "name":
-                info["name"] = value
-            elif "year" in label:
-                info["year"] = value
-            elif label == "date":
-                info["date"] = value
-            elif "major" in label:
-                info["majors"] = value
-            elif "minor" in label or "certificate" in label:
-                info["minors_certificates"] = value
-            elif "graduation" in label:
-                info["expected_graduation"] = value
-            elif "portfolio" in label:
-                info["portfolio_link"] = value
-    return info
 
 
-def parse_curriculum_table(table) -> list:
-    rows = []
-    for row in table.rows[1:]:  # skip header
-        cells = row.cells
-        if len(cells) < 4:
-            continue
-        course = cell_text(cells[0])
-        credits = cell_text(cells[1])
-        planned = cell_text(cells[2])
-        completed = cell_text(cells[3])
-        if course or credits or planned or completed:
-            rows.append({
-                "course": course,
-                "credits": credits,
-                "semester_planned": planned,
-                "semester_completed": completed,
-            })
-    return rows
+# ── Curriculum ────────────────────────────────────────────────────────────────
 
-
-def parse_experience_log(table) -> list:
+def parse_curriculum(table, data_start_row: int) -> list:
+    rows = raw_rows(table)
     entries = []
-    for row in table.rows[1:]:  # skip header
-        cells = row.cells
-        if len(cells) < 3:
+    for row in rows[data_start_row:]:
+        if len(row) < 2:
             continue
-        exp = cell_text(cells[0])
-        typ = cell_text(cells[1])
-        progress = cell_text(cells[2])
+        course   = tc_text(row[0])
+        credits  = tc_text(row[1])
+        planned  = tc_text(row[2]) if len(row) > 2 else None
+        completed= tc_text(row[3]) if len(row) > 3 else None
+        if course or planned or completed:
+            entries.append({"course": course, "credits": credits,
+                             "semester_planned": planned, "semester_completed": completed})
+    return entries
+
+
+# ── Competency tables ─────────────────────────────────────────────────────────
+
+def parse_checkboxes(tc) -> list[bool]:
+    """Parse ☒/☐ paragraphs in a progress-tracker cell → list[bool]."""
+    results = []
+    for para in tc_paragraphs(tc):
+        para = para.strip()
+        if not para:
+            continue
+        if para.startswith("☒"):
+            results.append(True)
+        elif para.startswith("☐"):
+            results.append(False)
+    return results
+
+
+def parse_experience_log(rows, data_start: int, data_end: int) -> list:
+    entries = []
+    for row in rows[data_start:data_end]:
+        if len(row) < 3:
+            continue
+        exp      = tc_text(row[0])
+        typ      = tc_text(row[1])
+        progress = tc_text(row[2])
         if exp or typ or progress:
             entries.append({"experience": exp, "type": typ, "progress": progress})
     return entries
 
 
-def parse_checkboxes(text: str) -> list[bool]:
-    results = []
-    for line in text.split("\n"):
-        line = line.strip()
-        if not line:
-            continue
-        if "☒" in line:
-            results.append(True)
-        elif "☐" in line:
-            results.append(False)
-    return results
-
-
-def parse_highlighted(table) -> list:
+def parse_highlighted(rows, data_start: int, data_end: int) -> list:
     entries = []
-    for row in table.rows[1:]:  # skip header
-        cells = row.cells
-        if len(cells) < 4:
+    for row in rows[data_start:data_end]:
+        if len(row) < 3:
             continue
-        exp = cell_text(cells[0])
-        typ = cell_text(cells[1])
+        exp = tc_text(row[0])
+        typ = tc_text(row[1])
 
-        # Progress tracker (col 2)
-        progress_text = raw_cell_text(cells[2])
-        progress_stages = parse_checkboxes(progress_text)
-        # Pad/truncate to exactly 4
-        while len(progress_stages) < 4:
-            progress_stages.append(False)
-        progress_stages = progress_stages[:4]
+        stages = parse_checkboxes(row[2]) if len(row) > 2 else []
+        while len(stages) < 4:
+            stages.append(False)
+        stages = stages[:4]
 
-        # Reflection topics (col 3)
-        reflection_text = raw_cell_text(cells[3])
-        reflection_checked = [b for b in parse_checkboxes(reflection_text) if b]
+        # Count consecutive completed stages from stage 1
+        stages_completed = 0
+        for v in stages:
+            if v:
+                stages_completed += 1
+            else:
+                break
 
-        stages_completed = sum(1 for i, v in enumerate(progress_stages) if v and all(progress_stages[:i + 1]))
+        reflection = [b for b in (parse_checkboxes(row[3]) if len(row) > 3 else []) if b]
 
-        if exp or typ or any(progress_stages):
+        if exp or typ or any(stages):
             entries.append({
                 "experience": exp,
                 "type": typ,
                 "progress_stages_completed": stages_completed,
-                "progress_stages": progress_stages,
-                "reflection_topics_checked": reflection_checked,
+                "progress_stages": stages,
+                "reflection_topics_checked": reflection,
             })
     return entries
 
 
-def find_advisor_notes(doc, after_table_idx: int) -> str | None:
-    """Find the advisor notes paragraph after a given table index."""
-    # Advisor notes are free-text paragraphs between highlighted table and next section
-    # Iterate document body XML to find paragraphs after the table
-    tables_seen = 0
-    collect = False
-    notes_parts = []
-    for elem in doc.element.body:
-        tag = elem.tag.split("}")[-1]
-        if tag == "tbl":
-            tables_seen += 1
-            if tables_seen == after_table_idx + 1:
-                collect = True
-                continue
-            if collect:
-                break  # hit next table, stop
-        if collect and tag == "p":
-            text = "".join(r.text for r in elem.iter("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t"))
-            if text.strip():
-                notes_parts.append(text.strip())
-    return clean("\n".join(notes_parts)) if notes_parts else None
+def parse_competency(table, is_leadership: bool) -> dict:
+    """
+    Leadership table has an extra 2-row header (HONORS COMPETENCY EXPERIENCES + LEADERSHIP),
+    so all offsets shift by 2 compared to Research/Intercultural.
+    """
+    rows = raw_rows(table)
+    if is_leadership:
+        log_data   = (4,  9)   # rows 4-8
+        hl_data    = (11, 15)  # rows 11-14
+        notes_row  = 16
+    else:
+        log_data   = (3,  8)   # rows 3-7
+        hl_data    = (10, 14)  # rows 10-13
+        notes_row  = 15
 
+    experience_log = parse_experience_log(rows, *log_data)
+    highlighted    = parse_highlighted(rows, *hl_data)
+
+    notes = None
+    if notes_row < len(rows) and rows[notes_row]:
+        notes = tc_text(rows[notes_row][0])
+
+    return {"experience_log": experience_log, "highlighted": highlighted, "advisor_notes": notes}
+
+
+# ── Main parse ────────────────────────────────────────────────────────────────
 
 def parse_docx(path: Path) -> tuple[dict, list[str]]:
     warnings: list[str] = []
     doc = Document(str(path))
+    tables = doc.tables
 
-    # Categorize all tables
-    tables_by_type: dict[str, list[tuple[int, object]]] = {}
-    for idx, table in enumerate(doc.tables):
-        ttype = identify_table(table)
-        if ttype:
-            tables_by_type.setdefault(ttype, []).append((idx, table))
-        # else: unrecognized table — could be section heading table, ignore
+    def get(idx):
+        try:
+            return tables[idx]
+        except IndexError:
+            warnings.append(f"Expected table at index {idx}, not found")
+            return None
 
-    # Student info
-    student = {
-        "name": None, "year": None, "date": None,
-        "majors": None, "minors_certificates": None,
-        "expected_graduation": None, "portfolio_link": None,
-    }
-    if "student_info" in tables_by_type:
-        student = parse_student_info(tables_by_type["student_info"][0][1])
-    else:
-        warnings.append("Could not find student information table")
+    # Table 0 — student info
+    student = {"name": None, "year": None, "date": None, "majors": None,
+                "minors_certificates": None, "expected_graduation": None, "portfolio_link": None}
+    t0 = get(0)
+    if t0:
+        student = parse_student_info(t0)
 
-    # Required curriculum
+    # Table 1 — required curriculum (data starts row 2)
     required = []
-    if "required_curriculum" in tables_by_type:
-        required = parse_curriculum_table(tables_by_type["required_curriculum"][0][1])
-    else:
-        warnings.append("Could not find required curriculum table")
+    t1 = get(1)
+    if t1:
+        required = parse_curriculum(t1, 2)
 
-    # Optional curriculum
+    # Table 2 — optional curriculum (data starts row 3, after extra description row)
     optional = []
-    if "optional_curriculum" in tables_by_type:
-        optional = parse_curriculum_table(tables_by_type["optional_curriculum"][0][1])
+    t2 = get(2)
+    if t2:
+        optional = parse_curriculum(t2, 3)
 
-    # Competency sections — we expect pairs: (experience_log, highlighted) × 3
-    # in document order: Leadership, Research, Intercultural
-    exp_logs = tables_by_type.get("experience_log", [])
-    highlighted_tables = tables_by_type.get("highlighted", [])
-
-    competency_keys = ["leadership", "research", "intercultural"]
+    # Tables 3/4/5 — competencies
     competencies = {}
-
-    for i, key in enumerate(competency_keys):
-        log = []
-        highlighted = []
-        notes = None
-
-        if i < len(exp_logs):
-            log = parse_experience_log(exp_logs[i][1])
+    for key, idx, is_lead in [("leadership", 3, True), ("research", 4, False), ("intercultural", 5, False)]:
+        t = get(idx)
+        if t:
+            competencies[key] = parse_competency(t, is_lead)
         else:
-            warnings.append(f"Could not find experience log table for {key}")
-
-        if i < len(highlighted_tables):
-            highlighted = parse_highlighted(highlighted_tables[i][1])
-            # Advisor notes come after highlighted table in document body
-            hl_idx = highlighted_tables[i][0]
-            notes = find_advisor_notes(doc, hl_idx)
-        else:
-            warnings.append(f"Could not find highlighted experiences table for {key}")
-
-        competencies[key] = {
-            "experience_log": log,
-            "highlighted": highlighted,
-            "advisor_notes": notes,
-        }
+            warnings.append(f"Missing {key} competency table")
+            competencies[key] = {"experience_log": [], "highlighted": [], "advisor_notes": None}
 
     return {
         "source_file": path.name,
@@ -299,44 +258,45 @@ def parse_docx(path: Path) -> tuple[dict, list[str]]:
     }, warnings
 
 
+# ── Entry point ───────────────────────────────────────────────────────────────
+
 def main():
     DATA_DIR.mkdir(exist_ok=True)
-    docx_files = list(PLANS_DIR.glob("*.docx"))
+    docx_files = sorted(PLANS_DIR.glob("*.docx"))
 
     if not docx_files:
         print("No .docx files found in 'Plan of Study/'. data/ is empty.")
         return
 
-    total = len(docx_files)
+    total  = len(docx_files)
     warned = 0
+    used_slugs: set[str] = set()
 
     for path in docx_files:
         try:
-            result, warnings = parse_docx(path)
+            result, w = parse_docx(path)
         except Exception as e:
-            print(f"ERROR parsing {path.name}: {e}", file=sys.stderr)
+            print(f"  ERROR {path.name}: {e}", file=sys.stderr)
             warned += 1
             continue
 
         name = result["student"].get("name")
-        slug = slugify(name) if name else slugify(path.stem)
-        out_path = DATA_DIR / f"{slug}.json"
-
-        # Avoid slug collision
+        base = slugify(name) if name else slugify(path.stem)
+        slug = base
         counter = 1
-        base_slug = slug
-        while out_path.exists():
-            slug = f"{base_slug}-{counter}"
-            out_path = DATA_DIR / f"{slug}.json"
+        while slug in used_slugs:
+            slug = f"{base}-{counter}"
             counter += 1
+        used_slugs.add(slug)
 
-        out_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+        out = DATA_DIR / f"{slug}.json"
+        out.write_text(json.dumps(result, indent=2), encoding="utf-8")
 
-        if warnings:
+        if w:
             warned += 1
-            print(f"  WARN {path.name}: {'; '.join(warnings)}")
+            print(f"  WARN {path.name}: {'; '.join(w)}")
         else:
-            print(f"  OK   {path.name} -> {out_path.name}")
+            print(f"  OK   {path.name} -> {out.name}")
 
     clean_count = total - warned
     if warned:
