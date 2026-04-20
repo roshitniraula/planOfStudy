@@ -1,0 +1,52 @@
+name: Parse Plans of Study
+
+on:
+  push:
+    paths:
+      - "Plan of Study/**"
+      - "parser/**"
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r parser/requirements.txt
+
+      - name: Run parser
+        id: parse
+        run: |
+          python parser/parse.py 2>&1 | tee /tmp/parse_output.txt
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/parse_output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "chore: re-parse plans of study"
+          git push
+
+      - name: Add warnings to job summary
+        if: always()
+        run: |
+          echo "## Parser Output" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat /tmp/parse_output.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if grep -q "WARN" /tmp/parse_output.txt; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "⚠️ **Some files had warnings — check the `/issues` page on the dashboard.**" >> $GITHUB_STEP_SUMMARY
+          fi
