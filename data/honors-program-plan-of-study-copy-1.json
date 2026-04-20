@@ -1,0 +1,55 @@
+{
+  "source_file": "HONORS PROGRAM PLAN OF STUDY - Copy (1).docx",
+  "parsed_at": "2026-04-20T18:45:22.794443Z",
+  "parse_warnings": [
+    "Could not find student information table",
+    "Could not find required curriculum table",
+    "Could not find experience log table for leadership",
+    "Could not find highlighted experiences table for leadership",
+    "Could not find experience log table for research",
+    "Could not find highlighted experiences table for research",
+    "Could not find experience log table for intercultural",
+    "Could not find highlighted experiences table for intercultural"
+  ],
+  "student": {
+    "name": null,
+    "year": null,
+    "date": null,
+    "majors": null,
+    "minors_certificates": null,
+    "expected_graduation": null,
+    "portfolio_link": null
+  },
+  "required_curriculum": [],
+  "optional_curriculum": [
+    {
+      "course": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio",
+      "credits": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio",
+      "semester_planned": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio",
+      "semester_completed": "To achieve this distinction, students must complete three language courses beyond the level of language study they had prior to beginning college and they must document this learning in their portfolio"
+    },
+    {
+      "course": "Courses",
+      "credits": "Credits",
+      "semester_planned": "Semester Planned",
+      "semester_completed": "Semester Completed"
+    }
+  ],
+  "competencies": {
+    "leadership": {
+      "experience_log": [],
+      "highlighted": [],
+      "advisor_notes": null
+    },
+    "research": {
+      "experience_log": [],
+      "highlighted": [],
+      "advisor_notes": null
+    },
+    "intercultural": {
+      "experience_log": [],
+      "highlighted": [],
+      "advisor_notes": null
+    }
+  }
+}
