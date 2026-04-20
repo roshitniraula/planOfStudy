@@ -11,7 +11,7 @@ export function generateStaticParams() {
 function CompetencyBlock({ title, section }: { title: string; section: CompetencySection }) {
   return (
     <section className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-      <div className="bg-mnsu-maroon text-white px-5 py-3">
+      <div className="bg-mnsu-purple text-white px-5 py-3">
         <h3 className="font-serif font-semibold">{title}</h3>
       </div>
       <div className="p-5 space-y-5">
@@ -62,7 +62,7 @@ function CompetencyBlock({ title, section }: { title: string; section: Competenc
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-medium text-sm">{h.experience ?? "—"}</span>
                     {h.type && (
-                      <span className="text-xs bg-mnsu-gold/20 text-mnsu-maroon px-2 py-0.5 rounded-full">{h.type}</span>
+                      <span className="text-xs bg-mnsu-gold/20 text-mnsu-purple px-2 py-0.5 rounded-full">{h.type}</span>
                     )}
                   </div>
                   <ProgressBar stages={h.progress_stages} />
@@ -75,7 +75,7 @@ function CompetencyBlock({ title, section }: { title: string; section: Competenc
         {/* Advisor Notes */}
         {section.advisor_notes && (
           <div className="bg-mnsu-gold/10 border-l-4 border-mnsu-gold rounded-r-lg p-4">
-            <div className="text-xs font-semibold text-mnsu-maroon uppercase tracking-wide mb-1">Instructor / Advisor Notes</div>
+            <div className="text-xs font-semibold text-mnsu-purple uppercase tracking-wide mb-1">Instructor / Advisor Notes</div>
             <p className="text-sm text-gray-700 whitespace-pre-wrap">{section.advisor_notes}</p>
           </div>
         )}
@@ -98,8 +98,8 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <Link href="/" className="text-sm text-mnsu-maroon hover:underline">← Overview</Link>
-          <h1 className="text-2xl font-serif font-bold text-mnsu-maroon mt-1">
+          <Link href="/" className="text-sm text-mnsu-purple hover:underline">← Overview</Link>
+          <h1 className="text-2xl font-serif font-bold text-mnsu-purple mt-1">
             {s.name ?? <span className="text-gray-400 italic">Unnamed Student</span>}
           </h1>
           <p className="text-gray-500 text-sm">{student.source_file}</p>
@@ -109,7 +109,7 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
             href={s.portfolio_link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm bg-mnsu-maroon text-white px-3 py-1.5 rounded hover:bg-mnsu-maroon-dark transition-colors"
+            className="text-sm bg-mnsu-purple text-white px-3 py-1.5 rounded hover:bg-mnsu-purple-dark transition-colors"
           >
             Portfolio ↗
           </a>
@@ -130,7 +130,7 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
 
       {/* Student Info */}
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
-        <h2 className="font-serif font-semibold text-mnsu-maroon mb-3">Student Information</h2>
+        <h2 className="font-serif font-semibold text-mnsu-purple mb-3">Student Information</h2>
         <dl className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 text-sm">
           {[
             ["Year", s.year],
@@ -149,7 +149,7 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
 
       {/* Curriculum */}
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
-        <h2 className="font-serif font-semibold text-mnsu-maroon mb-3">Required Curriculum</h2>
+        <h2 className="font-serif font-semibold text-mnsu-purple mb-3">Required Curriculum</h2>
         {student.required_curriculum.length === 0 ? (
           <p className="text-sm text-gray-400 italic">No curriculum data.</p>
         ) : (
@@ -179,7 +179,7 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
         )}
         {student.optional_curriculum.length > 0 && (
           <>
-            <h3 className="font-serif font-semibold text-mnsu-maroon mt-5 mb-3 text-sm">Honors with Distinction</h3>
+            <h3 className="font-serif font-semibold text-mnsu-purple mt-5 mb-3 text-sm">Honors with Distinction</h3>
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>

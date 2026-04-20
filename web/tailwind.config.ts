@@ -5,17 +5,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // MNSU Maverick brand colors
+        // MSU Maverick brand colors
         mnsu: {
-          maroon: "#782F40",
-          gold: "#C8A84B",
-          "maroon-dark": "#5a1f2e",
-          "gold-light": "#e8d08a",
+          purple: "#49306e",
+          gold: "#febd11",
+          "purple-dark": "#3e375a",
+          "purple-light": "#8b6f90",
         },
       },
       fontFamily: {
-        sans: ["Helvetica Neue", "Arial", "sans-serif"],
-        serif: ["Georgia", "Times New Roman", "serif"],
+        sans: ["Kanit", "sans-serif"],
       },
     },
   },

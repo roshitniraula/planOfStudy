@@ -3,24 +3,24 @@ import "./globals.css";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "MNSU Honors — Plan of Study Dashboard",
-  description: "Minnesota State University Mankato Honors Program student plan of study tracker",
+  title: "MSU Honors — Plan of Study Dashboard",
+  description: "Minnesota State University, Mankato Honors Program student plan of study tracker",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-gray-50 text-gray-900">
-        <header className="bg-mnsu-maroon text-white shadow-md">
+        <header className="bg-mnsu-purple text-white shadow-md">
           <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <div>
               <Link href="/" className="flex items-center gap-3 hover:opacity-90">
-                <div className="w-10 h-10 bg-mnsu-gold rounded flex items-center justify-center font-serif font-bold text-mnsu-maroon text-lg">
+                <div className="w-10 h-10 bg-mnsu-gold rounded flex items-center justify-center font-bold text-mnsu-purple text-lg">
                   M
                 </div>
                 <div>
-                  <div className="font-serif font-bold text-lg leading-tight">MNSU Honors Program</div>
-                  <div className="text-mnsu-gold-light text-xs leading-tight">Plan of Study Dashboard</div>
+                  <div className="font-bold text-lg leading-tight">Minnesota State University, Mankato</div>
+                  <div className="text-mnsu-gold text-xs leading-tight font-medium">Honors Program — Plan of Study Dashboard</div>
                 </div>
               </Link>
             </div>

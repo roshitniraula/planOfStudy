@@ -90,7 +90,7 @@ export default function HomePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-serif font-bold text-mnsu-maroon">Overview</h1>
+        <h1 className="text-2xl font-serif font-bold text-mnsu-purple">Overview</h1>
         <p className="text-gray-500 text-sm mt-1">
           {total === 0
             ? "No student files have been parsed yet. Drop .docx files into 'Plan of Study/' and push."
@@ -112,7 +112,7 @@ export default function HomePage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-serif font-semibold text-mnsu-maroon mb-3">All Students</h2>
+        <h2 className="text-lg font-serif font-semibold text-mnsu-purple mb-3">All Students</h2>
         <StudentTable rows={tableRows} years={years} terms={terms} />
       </div>
     </div>

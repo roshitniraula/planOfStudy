@@ -22,7 +22,7 @@ export default function ProgressBar({ stages, label }: Props) {
           <div
             key={i}
             title={STAGE_LABELS[i]}
-            className={`h-3 flex-1 rounded-sm ${done ? "bg-mnsu-maroon" : "bg-gray-200"}`}
+            className={`h-3 flex-1 rounded-sm ${done ? "bg-mnsu-purple" : "bg-gray-200"}`}
           />
         ))}
       </div>

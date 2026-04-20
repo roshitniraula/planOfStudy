@@ -26,7 +26,7 @@ const columns = [
   col.accessor("name", {
     header: "Name",
     cell: (info) => (
-      <Link href={`/students/${info.row.original.slug}`} className="text-mnsu-maroon hover:underline font-medium">
+      <Link href={`/students/${info.row.original.slug}`} className="text-mnsu-purple hover:underline font-medium">
         {info.getValue() || <span className="text-gray-400 italic">Unknown</span>}
       </Link>
     ),
@@ -71,7 +71,7 @@ export default function StudentTable({ rows, years, terms }: Props) {
         <select
           value={yearFilter}
           onChange={(e) => setYearFilter(e.target.value)}
-          className="text-sm border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-mnsu-maroon"
+          className="text-sm border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-mnsu-purple"
         >
           <option value="all">All years</option>
           {years.map((y) => <option key={y} value={y}>{y}</option>)}
@@ -79,7 +79,7 @@ export default function StudentTable({ rows, years, terms }: Props) {
         <select
           value={termFilter}
           onChange={(e) => setTermFilter(e.target.value)}
-          className="text-sm border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-mnsu-maroon"
+          className="text-sm border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-mnsu-purple"
         >
           <option value="all">All graduation terms</option>
           {terms.map((t) => <option key={t} value={t}>{t}</option>)}
@@ -95,7 +95,7 @@ export default function StudentTable({ rows, years, terms }: Props) {
                   <th
                     key={header.id}
                     onClick={header.column.getToggleSortingHandler()}
-                    className="px-4 py-2 text-left font-semibold text-gray-600 cursor-pointer select-none hover:text-mnsu-maroon"
+                    className="px-4 py-2 text-left font-semibold text-gray-600 cursor-pointer select-none hover:text-mnsu-purple"
                   >
                     {flexRender(header.column.columnDef.header, header.getContext())}
                     {header.column.getIsSorted() === "asc" ? " ↑" : header.column.getIsSorted() === "desc" ? " ↓" : ""}
