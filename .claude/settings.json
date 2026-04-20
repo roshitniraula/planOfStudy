@@ -7,7 +7,11 @@
       "Bash(git push *)",
       "Bash(git rm *)",
       "Bash(git commit -m ' *)",
-      "Bash(git fetch *)"
+      "Bash(git fetch *)",
+      "Bash(.venv/bin/python3 scripts/generate_samples.py)",
+      "Bash(.venv/bin/python3 parser/parse.py)",
+      "Bash(python3 -c ' *)",
+      "Bash(npm run *)"
     ]
   }
 }
