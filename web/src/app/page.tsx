@@ -1,14 +1,14 @@
 import { getAllStudents } from "@/lib/data";
+import { COMPETENCY_KEYS, type StudentRecord } from "@/lib/types";
 import StatCard from "@/components/StatCard";
 import { GradTermChart, CompetencyChart, StageDistChart } from "@/components/DashboardCharts";
 import StudentTable from "@/components/StudentTable";
 
-function countApproved(student: Awaited<ReturnType<typeof getAllStudents>>[number]) {
-  const comp = student.competencies;
-  return (
-    comp.leadership.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length +
-    comp.research.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length +
-    comp.intercultural.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length
+function countApproved(student: StudentRecord): number {
+  return Object.values(student.competencies).reduce(
+    (sum, section) =>
+      sum + section.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length,
+    0
   );
 }
 
@@ -36,33 +36,20 @@ export default function HomePage() {
     .map(([term, count]) => ({ term, count }))
     .sort((a, b) => a.term.localeCompare(b.term));
 
-  // Approved by competency
-  const compData = [
-    {
-      name: "Leadership",
-      approved: students.reduce((sum, s) =>
-        sum + s.competencies.leadership.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length, 0),
-    },
-    {
-      name: "Research",
-      approved: students.reduce((sum, s) =>
-        sum + s.competencies.research.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length, 0),
-    },
-    {
-      name: "Intercultural",
-      approved: students.reduce((sum, s) =>
-        sum + s.competencies.intercultural.experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length, 0),
-    },
-  ];
+  // Approved count per competency — capitalise the key for the chart axis label
+  const compData = COMPETENCY_KEYS.map((key) => ({
+    name: key[0].toUpperCase() + key.slice(1),
+    approved: students.reduce(
+      (sum, s) =>
+        sum + s.competencies[key].experience_log.filter((e) => e.progress?.toLowerCase() === "completed").length,
+      0
+    ),
+  }));
 
-  // Stage distribution
-  const stageBuckets = [0, 0, 0, 0, 0]; // 0 stages, 1 stage, 2 stages, 3 stages, 4 stages
+  // Stage distribution across all highlighted experiences
+  const stageBuckets = [0, 0, 0, 0, 0];
   for (const s of students) {
-    const all = [
-      ...s.competencies.leadership.highlighted,
-      ...s.competencies.research.highlighted,
-      ...s.competencies.intercultural.highlighted,
-    ];
+    const all = COMPETENCY_KEYS.flatMap((key) => s.competencies[key].highlighted);
     for (const h of all) {
       stageBuckets[h.progress_stages_completed]++;
     }

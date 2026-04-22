@@ -1,11 +1,60 @@
 import { getAllStudents, getStudentBySlug } from "@/lib/data";
+import { COMPETENCY_KEYS, COMPETENCY_TITLES, type CurriculumEntry, type CompetencySection } from "@/lib/types";
 import ProgressBar from "@/components/ProgressBar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { CompetencySection } from "@/lib/types";
 
 export function generateStaticParams() {
   return getAllStudents().map((s) => ({ slug: s.slug }));
+}
+
+// Validates that a portfolio URL uses http/https before rendering it as an href
+function safePortfolioHref(url: string | null): string | null {
+  if (!url) return null;
+  try {
+    const { protocol } = new URL(url);
+    return protocol === "http:" || protocol === "https:" ? url : null;
+  } catch {
+    return null;
+  }
+}
+
+// Shared curriculum table used for both required and optional sections.
+// Pass badge=true to show a green pill for completed semesters (required curriculum).
+function CurriculumTable({ entries, badge = false }: { entries: CurriculumEntry[]; badge?: boolean }) {
+  return (
+    <table className="w-full text-sm">
+      <thead className="bg-gray-50 border-b border-gray-100">
+        <tr>
+          {["Course", "Credits", "Planned", "Completed"].map((h) => (
+            <th key={h} className="px-3 py-2 text-left text-gray-600 font-medium">{h}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((c, i) => (
+          <tr key={i} className="border-t border-gray-50">
+            <td className="px-3 py-2 font-medium">{c.course ?? "—"}</td>
+            <td className="px-3 py-2 text-gray-500">{c.credits ?? "—"}</td>
+            <td className="px-3 py-2 text-gray-500">{c.semester_planned ?? "—"}</td>
+            <td className="px-3 py-2">
+              {c.semester_completed ? (
+                badge ? (
+                  <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+                    {c.semester_completed}
+                  </span>
+                ) : (
+                  <span className="text-gray-500">{c.semester_completed}</span>
+                )
+              ) : (
+                <span className="text-gray-300">—</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 function CompetencyBlock({ title, section }: { title: string; section: CompetencySection }) {
@@ -93,6 +142,7 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
   if (!student) notFound();
 
   const s = student.student;
+  const portfolioHref = safePortfolioHref(s.portfolio_link);
 
   return (
     <div className="space-y-6">
@@ -104,9 +154,9 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
           </h1>
           <p className="text-gray-500 text-sm">{student.source_file}</p>
         </div>
-        {s.portfolio_link && (
+        {portfolioHref && (
           <a
-            href={s.portfolio_link}
+            href={portfolioHref}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm bg-mnsu-purple text-white px-3 py-1.5 rounded hover:bg-mnsu-purple-dark transition-colors"
@@ -153,60 +203,20 @@ export default function StudentPage({ params }: { params: { slug: string } }) {
         {student.required_curriculum.length === 0 ? (
           <p className="text-sm text-gray-400 italic">No curriculum data.</p>
         ) : (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr>
-                {["Course", "Credits", "Planned", "Completed"].map((h) => (
-                  <th key={h} className="px-3 py-2 text-left text-gray-600 font-medium">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {student.required_curriculum.map((c, i) => (
-                <tr key={i} className="border-t border-gray-50">
-                  <td className="px-3 py-2 font-medium">{c.course ?? "—"}</td>
-                  <td className="px-3 py-2 text-gray-500">{c.credits ?? "—"}</td>
-                  <td className="px-3 py-2 text-gray-500">{c.semester_planned ?? "—"}</td>
-                  <td className="px-3 py-2">
-                    {c.semester_completed
-                      ? <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">{c.semester_completed}</span>
-                      : <span className="text-gray-300">—</span>}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <CurriculumTable entries={student.required_curriculum} badge />
         )}
         {student.optional_curriculum.length > 0 && (
           <>
             <h3 className="font-serif font-semibold text-mnsu-purple mt-5 mb-3 text-sm">Honors with Distinction</h3>
-            <table className="w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-100">
-                <tr>
-                  {["Course", "Credits", "Planned", "Completed"].map((h) => (
-                    <th key={h} className="px-3 py-2 text-left text-gray-600 font-medium">{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {student.optional_curriculum.map((c, i) => (
-                  <tr key={i} className="border-t border-gray-50">
-                    <td className="px-3 py-2">{c.course ?? "—"}</td>
-                    <td className="px-3 py-2 text-gray-500">{c.credits ?? "—"}</td>
-                    <td className="px-3 py-2 text-gray-500">{c.semester_planned ?? "—"}</td>
-                    <td className="px-3 py-2 text-gray-500">{c.semester_completed ?? "—"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <CurriculumTable entries={student.optional_curriculum} />
           </>
         )}
       </div>
 
-      {/* Competencies */}
-      <CompetencyBlock title="Leadership" section={student.competencies.leadership} />
-      <CompetencyBlock title="Research, Scholarly, & Creative Activity" section={student.competencies.research} />
-      <CompetencyBlock title="Intercultural Engagement" section={student.competencies.intercultural} />
+      {/* Competencies — iterate over the ordered key list to avoid repeating each section manually */}
+      {COMPETENCY_KEYS.map((key) => (
+        <CompetencyBlock key={key} title={COMPETENCY_TITLES[key]} section={student.competencies[key]} />
+      ))}
 
       <p className="text-xs text-gray-400 text-right">Parsed {new Date(student.parsed_at).toLocaleString()}</p>
     </div>

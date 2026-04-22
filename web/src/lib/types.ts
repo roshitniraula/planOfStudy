@@ -35,6 +35,17 @@ export interface CompetencySection {
   advisor_notes: string | null;
 }
 
+// Ordered tuple of all three competency keys — iterate this instead of repeating each key manually
+export type CompetencyKey = "leadership" | "research" | "intercultural";
+export const COMPETENCY_KEYS: CompetencyKey[] = ["leadership", "research", "intercultural"];
+
+// Full display titles used in section headings and the detail page
+export const COMPETENCY_TITLES: Record<CompetencyKey, string> = {
+  leadership: "Leadership",
+  research: "Research, Scholarly, & Creative Activity",
+  intercultural: "Intercultural Engagement",
+};
+
 export interface StudentRecord {
   source_file: string;
   parsed_at: string;
@@ -42,10 +53,6 @@ export interface StudentRecord {
   student: StudentInfo;
   required_curriculum: CurriculumEntry[];
   optional_curriculum: CurriculumEntry[];
-  competencies: {
-    leadership: CompetencySection;
-    research: CompetencySection;
-    intercultural: CompetencySection;
-  };
+  competencies: Record<CompetencyKey, CompetencySection>;
   slug: string;
 }
