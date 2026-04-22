@@ -231,7 +231,7 @@ const STATUS_OPTIONS: {
   {
     value: "needs",
     label: "Needs experiences",
-    hint: "0 approved experiences in the selected area — good for outreach",
+    hint: "Below halfway: fewer than 4 approved total (or fewer than 1 in selected area)",
   },
 ];
 
@@ -298,7 +298,10 @@ export default function FinderClient({ students, majors }: Props) {
         const goalThreshold =
           competencyKey !== "all" ? GOAL_PER_COMPETENCY : EXPERIENCE_GOAL;
 
-        if (statusFilter === "needs" && count > 0) return false;
+        // "Needs experiences" = below the halfway mark, not just zero
+        const needsThreshold = goalThreshold / 2;
+
+        if (statusFilter === "needs" && count >= needsThreshold) return false;
         if (statusFilter === "has" && count === 0) return false;
         if (statusFilter === "goal" && count < goalThreshold) return false;
       }
